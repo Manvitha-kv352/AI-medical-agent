@@ -1,224 +1,300 @@
-# 🏥 Medical Research AI Agent
+# 🏥 AI Medical Research Agent
 
-An AI-powered Medical Research Agent that retrieves real research papers from PubMed, stores them in a vector database, performs semantic search, and generates evidence-based summaries using Large Language Models.
+An Agentic AI-powered medical research assistant that combines PubMed search, Retrieval-Augmented Generation (RAG), ChromaDB vector search, LangGraph workflows, and Ollama LLMs to provide evidence-based medical research insights.
 
-## 🚀 Project Overview
+---
 
-This project combines Agentic AI, Retrieval-Augmented Generation (RAG), LangGraph, MCP tools, and local LLMs to help users explore medical research papers efficiently.
+# 🚀 Overview
 
-The agent can:
+The AI Medical Research Agent helps users:
 
-* Search PubMed for medical research papers
-* Fetch abstracts and metadata
-* Store papers in a vector database
+* Search medical literature from PubMed
+* Retrieve research papers and metadata
+* Store medical knowledge in ChromaDB
 * Perform semantic similarity search
-* Generate evidence-based summaries
-* Provide PMIDs for research verification
-* Answer healthcare research queries using retrieved literature
+* Generate AI-powered medical summaries
+* Verify generated responses through a validation layer
+* Provide evidence-based answers using retrieved research
+
+The system combines RAG, Agentic AI workflows, and Large Language Models to improve the quality of healthcare research exploration.
 
 ---
 
-## 🛠️ Tech Stack
-
-### AI & Agent Framework
-
-* LangGraph
-* MCP (Model Context Protocol)
-* Ollama
-* Llama 3
-
-### Retrieval & Vector Database
-
-* ChromaDB
-* Sentence Transformers
-* all-MiniLM-L6-v2 Embeddings
-
-### Research Data Source
-
-* PubMed API (NCBI E-Utilities)
-
-### Backend
-
-* FastAPI
-* Python
-
-### Frontend
-
-* Streamlit
-
----
-
-## 🏗️ System Architecture
+# 🧠 Architecture
 
 User Query
 ↓
-LangGraph Agent
+Router Agent
 ↓
 PubMed Search Tool
 ↓
-Abstract Retrieval Tool
+RAG Retrieval (ChromaDB)
 ↓
-ChromaDB Vector Storage
+LangGraph Workflow
 ↓
-Semantic Search
+Ollama (Llama 3)
 ↓
-Llama 3 (Ollama)
+Response Verification
 ↓
-Evidence-Based Answer
+Final Answer
 
 ---
 
-## 🔥 Features
+# ✨ Features
 
-### Research Retrieval
+## Medical Research Search
 
-* Search medical literature from PubMed
-* Retrieve latest research papers
-* Fetch abstracts automatically
+* Search PubMed using natural language queries
+* Retrieve recent medical research papers
+* Extract paper metadata
 
-### Semantic Search
+## Agentic Workflow
 
-* Vector embeddings using Sentence Transformers
-* Similarity-based paper retrieval
-* Context-aware document selection
+* Query routing system
+* Multiple processing nodes
+* Automated decision making
 
-### AI Summarization
+## Retrieval-Augmented Generation (RAG)
 
-* Research paper summaries
-* Key findings extraction
-* Evidence-based responses
-* Citation support using PMIDs
+* Semantic document retrieval
+* Context-aware answer generation
+* Reduced hallucinations
 
-### Agentic Workflow
+## Vector Database
 
-* LangGraph orchestration
-* MCP tool integration
-* Multi-step reasoning pipeline
+* ChromaDB integration
+* Embedding-based search
+* Medical document storage
+
+## AI Answer Generation
+
+* Powered by Ollama
+* Uses Llama 3 locally
+* Evidence-based response generation
+
+## Verification Layer
+
+* Response validation
+* Safety checking
+* Medical answer verification
 
 ---
 
-## 📂 Project Structure
+# 🛠️ Tech Stack
+
+## Backend
+
+* Node.js
+* Express.js
+* LangGraph
+
+## AI & LLM
+
+* Ollama
+* Llama 3
+
+## Retrieval
+
+* ChromaDB
+* Embedding Models
+
+## Data Source
+
+* PubMed API
+* NCBI E-Utilities
+
+## Frontend
+
+* React
+* Vite
+
+## Containerization
+
+* Docker
+* Docker Compose
+
+---
+
+# 📂 Project Structure
 
 medical-research-agent/
 
-├── api.py
+├── backend/
 
-├── agent_langgraph.py
+│ ├── server.js
 
-├── mcp_tools.py
+│ ├── agent.js
 
-├── ui.py
+│ ├── graph/
 
-├── medical_db/
+│ │ ├── medicalGraph.js
 
-├── requirements.txt
+│ │ └── verifier.js
+
+│ ├── tools/
+
+│ │ └── pubmedtool.js
+
+│ └── rag/
+
+│ ├── chroma.js
+
+│ ├── embed.js
+
+│ └── ingest.js
+
+│
+
+├── frontend/
+
+│ ├── src/
+
+│ ├── public/
+
+│ └── vite.config.js
+
+│
+
+├── rag_service/
+
+│ └── app.py
+
+│
+
+├── docker-compose.yml
 
 └── README.md
 
 ---
 
-## ⚙️ LangGraph Workflow
+# ⚙️ Workflow
 
-### 1. Retrieve Node
+## Step 1: Query Routing
 
-Searches PubMed using the user query.
+The Router Agent analyzes the user's query and determines whether to:
 
-### 2. Embed Node
+* Use RAG retrieval
+* Use direct LLM generation
+* Trigger PubMed search
 
-Stores research papers inside ChromaDB.
+## Step 2: Research Retrieval
 
-### 3. Context Node
+The PubMed Tool:
 
-Retrieves the most relevant documents using semantic search.
+* Searches PubMed
+* Retrieves paper metadata
+* Returns research references
 
-### 4. Generate Node
+## Step 3: Semantic Search
 
-Uses Llama 3 to generate evidence-based summaries.
+ChromaDB:
+
+* Stores embeddings
+* Finds relevant medical documents
+* Supplies context to the LLM
+
+## Step 4: AI Generation
+
+Llama 3:
+
+* Receives retrieved context
+* Generates structured medical responses
+* Produces evidence-based outputs
+
+## Step 5: Verification
+
+Verifier Node:
+
+* Checks generated answers
+* Detects inconsistencies
+* Improves reliability
 
 ---
 
-## ▶️ Running the Project
+# 🚀 Installation
 
-### Create Virtual Environment
-
-```bash
-python -m venv venv
-```
-
-### Activate Environment
-
-Windows
+## Clone Repository
 
 ```bash
-venv\Scripts\activate
+git clone <repository-url>
+cd medical-research-agent
 ```
 
-### Install Dependencies
+## Install Backend Dependencies
 
 ```bash
-pip install -r requirements.txt
+cd backend
+npm install
 ```
 
-### Start Ollama
+## Install Frontend Dependencies
+
+```bash
+cd frontend
+npm install
+```
+
+## Start Ollama
 
 ```bash
 ollama run llama3
 ```
 
-### Start FastAPI Backend
+## Run Backend
 
 ```bash
-uvicorn api:app --reload
+npm run dev
 ```
 
-### Start Streamlit Frontend
+## Run Frontend
 
 ```bash
-streamlit run ui.py
+npm run dev
 ```
 
 ---
 
-## Example Queries
+# 🔎 Example Queries
 
-* Type 2 diabetes interventions
-* Machine learning in healthcare
-* Cancer diagnosis using AI
-* Neuroscience research papers
-* Cardiovascular disease prediction
+* What are recent diabetes treatment studies?
+* Research papers on machine learning in healthcare
+* Latest cancer diagnosis methods
+* Cardiovascular disease prediction research
+* Neuroscience studies on autism
 
 ---
 
-## Learning Outcomes
+# 🎯 Learning Outcomes
 
 This project demonstrates:
 
-* Agentic AI Development
+* Agentic AI Design
 * LangGraph Workflows
-* MCP Tool Integration
 * Retrieval-Augmented Generation (RAG)
 * Vector Databases
-* LLM Applications in Healthcare
-* Research Automation
+* Semantic Search
+* LLM Integration
+* Medical Research Automation
+* AI Verification Systems
 
 ---
 
-## Future Improvements
+# 🔮 Future Enhancements
 
-* Multi-Agent Architecture
-* Research Paper Ranking Agent
-* PDF Paper Retrieval
-* Medical Citation Verification Agent
+* Multi-Agent Collaboration
+* Advanced Medical Citation Generation
+* PDF Research Paper Retrieval
 * Research Trend Analysis
-* Knowledge Graph Integration
-* Clinical Decision Support
+* Medical Knowledge Graph Integration
+* Clinical Decision Support Features
+* Real-Time Research Monitoring
 
 ---
 
-## Author
+# 👩‍💻 Author
 
 Manvitha kv
 
-AI & Data Science Engineer
+Artificial Intelligence & Data Science
 
-Built as an Agentic AI Healthcare Research Assistant using LangGraph, MCP, FastAPI, ChromaDB, PubMed, Ollama, and Llama 3.
+Built as an Agentic AI Medical Research Assistant using LangGraph, ChromaDB, PubMed, Ollama, Llama 3, React, Express, and Retrieval-Augmented Generation (RAG).
