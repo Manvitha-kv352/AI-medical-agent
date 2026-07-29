@@ -1,0 +1,18 @@
+# Virtual Environment
+venv/
+
+# Environment Variables
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Chroma Database
+medical_db/
+
+# IDE
+.vscode/
+
+# OS
+.DS_Store
