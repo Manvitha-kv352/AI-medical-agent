@@ -26,6 +26,8 @@ def research(q: str):
     })
 
     return {
-        "query": q,
-        "answer": result["answer"]
-    }
+    "query": q,
+    "answer": result["answer"],
+    "context": result["context"],
+    "pmids": result["pmids"]
+}

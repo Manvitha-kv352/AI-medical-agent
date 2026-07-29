@@ -116,8 +116,10 @@ def bm25_search(query: str, docs: list, top_k: int = 3):
 # =========================
 def hybrid_search(query: str, docs: list, top_k: int = 3):
     """
-    Combines Vector Search + BM25 Search.
-    Duplicate documents are removed.
+    Hybrid Retrieval:
+    - Dense Retrieval (ChromaDB)
+    - Sparse Retrieval (BM25)
+    - Removes duplicates while preserving metadata
     """
 
     vector_results = vector_search(query, top_k=top_k)
@@ -126,13 +128,21 @@ def hybrid_search(query: str, docs: list, top_k: int = 3):
 
     if (
         vector_results
-        and "documents" in vector_results
-        and vector_results["documents"]
+        and vector_results.get("documents")
+        and vector_results.get("metadatas")
     ):
-        vector_docs = [
-            {"text": doc}
-            for doc in vector_results["documents"][0]
-        ]
+
+        documents = vector_results["documents"][0]
+        metadatas = vector_results["metadatas"][0]
+
+        for text, metadata in zip(documents, metadatas):
+
+            vector_docs.append(
+                {
+                    "text": text,
+                    "pmid": metadata.get("pmid")
+                }
+            )
 
     bm25_docs = bm25_search(query, docs, top_k)
 
@@ -143,14 +153,11 @@ def hybrid_search(query: str, docs: list, top_k: int = 3):
 
     for doc in combined:
 
-        text = doc["text"]
-
-        if text not in seen:
+        if doc["text"] not in seen:
             unique_docs.append(doc)
-            seen.add(text)
+            seen.add(doc["text"])
 
     return unique_docs
-
 
 # =========================
 # TOOL 6: STORE DOCUMENTS

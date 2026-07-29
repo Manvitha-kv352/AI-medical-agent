@@ -1,6 +1,7 @@
 from langgraph.graph import StateGraph, END
 from typing import TypedDict, List
 from llm.model import llm
+from tools.reranker import rerank
 
 # MCP TOOLS
 from tools.mcp_tools import (
@@ -8,6 +9,7 @@ from tools.mcp_tools import (
     fetch_abstracts,
     store_docs,
     vector_search,
+    hybrid_search,
 )
 
 
@@ -18,6 +20,7 @@ class AgentState(TypedDict):
     question: str
     docs: List
     context: str
+    pmids: List[str]
     answer: str
 
 
@@ -56,16 +59,35 @@ def context_node(state):
 
     query = state["question"]
 
-    results = hybrid_search(
-    query=query,
-    docs=state["docs"],
-    top_k=5
-)
-    docs = results["documents"][0]
+    # Hybrid retrieval
+    docs = hybrid_search(
+        query=query,
+        docs=state["docs"],
+        top_k=5
+    )
 
-    context = "\n\n".join(docs)
+    # Cross-encoder reranking
+    docs = rerank(
+        query=query,
+        docs=docs,
+        top_k=3
+    )
 
-    return {"context": context}
+    context = "\n\n".join(
+        f"PMID: {doc.get('pmid', 'unknown')}\n{doc['text']}"
+        for doc in docs
+    )
+
+    pmids = []
+    for doc in docs:
+        pmid = doc.get("pmid")
+        if pmid:
+            pmids.append(pmid)
+
+    return {
+        "context": context,
+        "pmids": pmids
+    }
 
 
 # =========================
@@ -78,9 +100,10 @@ You are an evidence-based medical research assistant.
 
 RULES:
 - Use ONLY the provided context.
-- Do NOT hallucinate.
-- Do NOT invent findings.
-- Summarize each paper separately.
+- Never use outside medical knowledge.
+- Every claim must be supported by the retrieved studies.
+- When mentioning evidence, cite the corresponding PMID.
+- End your response with a "References" section listing the PMIDs you used.
 
 Context:
 {state.get('context', '')}

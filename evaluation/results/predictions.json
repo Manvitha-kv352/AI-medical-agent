@@ -1,0 +1,212 @@
+[
+    {
+        "question": "What are the treatments for Type 2 Diabetes?",
+        "answer": {
+            "content": "According to the provided context, treatments for Type 2 Diabetes include GLP-1 receptor agonists (GLP-1RAs) (PMID: 42521944), SGLT2 inhibitors (SGLT2is) (PMID: 42521622), and dipeptidyl peptidase 4 inhibitors (DPP4is) (PMID: 42521622), as well as insulin and sulfonylureas (PMID: 42521944).\n\nReferences:\nPMID: 42521944\nPMID: 42521622",
+            "additional_kwargs": {},
+            "response_metadata": {
+                "token_usage": {
+                    "completion_tokens": 123,
+                    "prompt_tokens": 1474,
+                    "total_tokens": 1597,
+                    "completion_time": 0.264869091,
+                    "completion_tokens_details": null,
+                    "prompt_time": 0.119409311,
+                    "prompt_tokens_details": null,
+                    "queue_time": 0.162034295,
+                    "total_time": 0.384278402
+                },
+                "model_name": "llama-3.3-70b-versatile",
+                "system_fingerprint": "fp_3272ea2d91",
+                "service_tier": "on_demand",
+                "finish_reason": "stop",
+                "logprobs": null,
+                "model_provider": "groq"
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--019facd6-60f5-7082-b0c9-12c5749eebc9-0",
+            "tool_calls": [],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+                "input_tokens": 1474,
+                "output_tokens": 123,
+                "total_tokens": 1597
+            }
+        },
+        "context": "PMID: 42521944\nGLP-1 receptor agonists at the crossroads of diabetes, hepatic steatosis, and hepatocellular carcinoma.\nThe epidemiology of hepatocellular carcinoma (HCC) is increasingly shaped by the expanding burden of type 2 diabetes (T2D), obesity, and metabolic dysfunction-associated steatotic liver disease (MASLD). Glucagon-like peptide-1 receptor agonists (GLP-1RAs), initially developed as glucose-lowering agents, have emerged as systemic metabolic therapies with effects extending beyond glycemic control, including weight reduction, cardiovascular and renal protection, and improvement of steatotic liver disease. This review summarizes current evidence on the potential role of GLP-1RAs in modifying the natural history of MASLD and reducing HCC risk. Clinical trials consistently support beneficial effects on steatosis and metabolic dysfunction-associated steatohepatitis, particularly in non-cirrhotic patients, whereas effects in established cirrhosis appear less consistent. Real-world studies and target trial emulations suggest that GLP-1RA use may be associated with lower rates of hepatic decompensation, cirrhosis progression, and incident HCC, although the magnitude and robustness of these associations vary according to disease stage, comparator therapy, exposure definition, and outcome hierarchy. The strongest apparent benefit is generally observed against insulin or sulfonylureas, while differences are attenuated in comparisons with other metabolically favorable agents, such as SGLT2 inhibitors. Mechanistic data support indirect hepatoprotective actions mediated by reduced insulin resistance, lipotoxicity, inflammation, fibrogenesis, adipose-liver crosstalk, and tumor-promoting pathways. Overall, GLP-1RAs represent promising disease-modifying agents in metabolic liver disease, but dedicated prospective studies are required to establish causality and define their role in HCC prevention.\n\nPMID: 42522049\nContextual Factors Affecting SGLT2 Inhibitors and GLP-1 Receptor Agonists Prescribing in Primary Care: An Application of the Consolidated Framework for Implementation Research.\nDespite strong evidence supporting cardiovascular and kidney benefits of sodium-glucose co-transporter-2 inhibitors (SGLT2i) and glucagon-like peptide-1 receptor agonists (GLP-1 RA) in patients with type 2 diabetes, prescribing rates remain suboptimal. The aim of this study was to assess clinicians' knowledge and comfort prescribing SGLT2i and GLP-1 RA in clinical practice and factors influencing prescribing of these agents. This multi-methods study used questionnaires to assess self-reported knowledge and comfort prescribing SGLT2i and GLP-1 RA, and semi-structured interviews based on the Consolidated Framework for Implementation Research (CFIR) to assess factors affecting prescribing decisions among 21 clinicians (12 primary care physicians, 4 pharmacists, 5 nurse practitioners) at a large community-based health system in Virginia. Questionnaire results were analyzed using descriptive statistics, and interviews used a two-phase analytic approach combining inductive and deductive coding. Clinicians self-reported high knowledge (7.9/10) and comfort (8.1 and 8.4/10) prescribing SGLT2i and GLP-1 RA but identified multiple implementation barriers. The most significant barriers were insurance coverage and out-of-pocket costs, with prior authorization requirements delaying therapy initiation. Medicare beneficiaries faced particularly challenging access due to coverage gaps and ineligibility for manufacturer assistance programs. Organizational factors, including high workload, limited appointment time, and the absence of automated patient identification systems, hindered consistent prescribing. Medication burden, side effects, and aversion to injectable medications emerged as patient-related barriers. Facilitators included strong clinical evidence supporting these agents, organizational culture supportive of innovation, and access to pharmacist support. Despite high self-reported knowledge and comfort prescribing SGLT2i and GLP-1 RA, clinicians identified barriers to their use in clinical practice at the patient, clinician, organizational, and medication access levels. Future work should identify the best implementation strategies to address these barriers.\n\nPMID: 42521622\nGLP-1 Receptor Agonists and Risk of Skin Cancer in Adults With Type 2 Diabetes: A Target Trial Emulation.\nExisting evidence regarding the association between glucagon-like peptide-1 receptor agonists (GLP-1RAs) and risk of melanoma and non-melanoma skin cancer (NMSC) is inconclusive. This study aimed to assess the association between GLP-1RA initiation and risks of melanoma and NMSC versus sodium-glucose cotransporter 2 inhibitors (SGLT2is) and dipeptidyl peptidase 4 inhibitors (DPP4is) in adults with type 2 diabetes (T2D). Target trial emulation using TriNetX electronic health records (2014-2025). Adults with T2D initiating GLP-1RAs, SGLT2is or DPP4is were included. Outcomes were incident melanoma and NMSC over 3\u2009years. Propensity score matching and Cox models estimated hazard ratios (HRs). Sensitivity analyses included negative control outcome (NCO) calibration, a lag-period analysis and restriction to patients with obesity. After matching, the GLP-1RA versus SGLT2i cohort included 235\u2009797 pairs; the GLP-1RA versus DPP4i cohort included 153\u2009873 pairs. Mean follow-up ranged from 1.8 to 2.2\u2009years. GLP-1RA use was not associated with melanoma compared with either SGLT2i (HR, 1.04; 95% CI, 0.93-1.17) or DPP4i (HR, 1.09; 95% CI, 0.95-1.25). A borderline increase in NMSC risk was observed in the comparison with SGLT2is (HR, 1.06; 95% CI, 1.00-1.11); no such association was identified in the comparison with DPP4is (HR, 1.03; 95% CI, 0.97-1.09). Findings were generally consistent across sensitivity analyses; however, the association with NMSC was attenuated after NCO calibration. GLP-1RA therapy was not associated with an increased risk of melanoma. A borderline increase in NMSC risk was observed compared with SGLT2is but was not evident after NCO calibration.",
+        "pmids": [
+            "42521944",
+            "42522049",
+            "42521622"
+        ]
+    },
+    {
+        "question": "What causes Alzheimer's disease?",
+        "answer": {
+            "content": "Alzheimer's disease (AD) is clinically characterized by extracellular amyloid plaques caused by \u03b2-amyloid (A\u03b2) aggregation and intracellular neurofibrillary tangles (NFTs) formed by hyperphosphorylation of tau protein (PMID: 42520518). The aggregation of A\u03b2 and the formation of NFTs attract microglia to their periphery, causing them to adopt the proinflammatory M1 type, which triggers a positive feedback mechanism that activates more microglia and further aggravates the neuroinflammatory response (PMID: 42520518). Additionally, chronic neuroinflammation marked by microglial and astrocytic reactivity, inflammasome activation, and increased pro-inflammatory mediators might play a pivotal role in linking sensory-circuit injury to neurodegeneration (PMID: 42518751).\n\nReferences:\nPMID: 42520518\nPMID: 42518751",
+            "additional_kwargs": {},
+            "response_metadata": {
+                "token_usage": {
+                    "completion_tokens": 197,
+                    "prompt_tokens": 871,
+                    "total_tokens": 1068,
+                    "completion_time": 0.372972959,
+                    "completion_tokens_details": null,
+                    "prompt_time": 0.097616747,
+                    "prompt_tokens_details": null,
+                    "queue_time": 0.161549932,
+                    "total_time": 0.470589706
+                },
+                "model_name": "llama-3.3-70b-versatile",
+                "system_fingerprint": "fp_45180df409",
+                "service_tier": "on_demand",
+                "finish_reason": "stop",
+                "logprobs": null,
+                "model_provider": "groq"
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--019facd6-76b3-7e42-bb30-db3a72705f27-0",
+            "tool_calls": [],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+                "input_tokens": 871,
+                "output_tokens": 197,
+                "total_tokens": 1068
+            }
+        },
+        "context": "PMID: 42520518\nRegulation of different kinases for Alzheimer's disease therapy: progresses and perspectives.\nAlzheimer's disease (AD) is clinically characterized by extracellular amyloid plaques caused by \u03b2-amyloid (A\u03b2) aggregation and intracellular neurofibrillary tangles (NFTs) formed by hyperphosphorylation of tau protein. Plaques and tangles attract microglia to their periphery, causing them to adopt the proinflammatory M1 type. In the central nervous system (CNS), activated microglia are a major source of inflammatory molecules, which trigger a positive feedback mechanism that activates more microglia, which further aggravates the neuroinflammatory response. In this procedure, many kinases are involved in the main signaling pathways of microglia activation. Kinases phosphorylate different substrate proteins, thereby regulating various processes of AD occurrence and development. Therefore, many researchers have developed kinase modulators to reduce the phosphorylation process of downstream substrates, in order to achieve the effect of AD treatment.\n\nPMID: 42520782\nAnti-Amyloid Therapies for Early Alzheimer's Disease: Evidence-Based Recommendations.\nAlzheimer's disease (AD) is the most common cause of dementia in older adults and represents a growing public health burden. Traditional therapies offer only symptomatic relief without modifying disease progression. Recently approved anti-amyloid monoclonal antibodies, donanemab and lecanemab, represent a shift toward disease-modifying treatment in patients with mild cognitive impairment (MCI) or mild AD with confirmed amyloid pathology. This review synthesizes current evidence from key clinical trials, real-world safety considerations, and expert-driven appropriate use recommendations (AURs) to guide the safe and effective use of donanemab and lecanemab. Both agents demonstrate statistically significant and clinically meaningful slowing of cognitive and functional decline in early symptomatic AD. Key differences exist in their mechanisms of action, dosing schedules, and treatment duration. Safety monitoring, particularly for amyloid-related imaging abnormalities (ARIA) and apolipoprotein E (APOE) \u03b54 genotyping, is an essential component of care. Anti-amyloid therapies offer a meaningful step forward in AD management, but their use requires careful patient selection, biomarker confirmation, and adherence to safety protocols. As long-term outcomes and comparative effectiveness remain uncertain, continued surveillance, patient education, and equitable access will be important in optimizing the clinical impact of anti-amyloid therapies.\n\nPMID: 42518751\nNeuroinflammation in Alzheimer's disease-associated sensory dysfunction: mechanistic links, actionable targets and therapeutic strategies.\nAlzheimer's disease (AD) is the most common cause of dementia and major public-health challenge in aging societies worldwide. Accumulating evidence suggests that olfactory and visual deficits can precede overt cognitive symptoms and are closely associated with amyloid-\u03b2 deposition, pathological tau phosphorylation, and disease progression. Early sensory abnormalities in AD likely arise from converging pathological processes. Among these, chronic neuroinflammation marked by microglial and astrocytic reactivity, inflammasome activation and increased pro-inflammatory mediators might play a pivotal role linking sensory-circuit injury to neurodegeneration. A coherent synthesis of the inflammatory mechanisms underlying early olfactory and visual impairment in AD remains limited, and putative molecular pathways and interventions have not been fully integrated. We aimed to identify AD-related olfactory and visual or retinal abnormalities, combine core inflammatory pathways and their interactions with amyloid-\u03b2 and tau pathology, and summarize actionable targets and candidate interventions along a \"receptor-intracellular signaling-inflammasome-effector\" axis, to inform earlier-stage detection and mechanism-guided intervention in AD.",
+        "pmids": [
+            "42520518",
+            "42520782",
+            "42518751"
+        ]
+    },
+    {
+        "question": "Latest breast cancer therapies",
+        "answer": {
+            "content": "According to the latest research, several advancements have been made in breast cancer therapies. For hormone receptor-positive/human epidermal growth factor receptor 2 negative (HR+HER2-) breast cancer, the combination of CDK4/6 inhibitors with adjuvant endocrine therapy has redefined the high-risk population (PMID: 42477937). Additionally, PARP inhibitors have become an important therapeutic option for patients with germline pathogenic or likely pathogenic BRCA mutations in HER2-negative disease (PMID: 42477937).\n\nFor HER2-positive patients, treatment is now in an era where de-escalation and escalation strategies are pursued in parallel, and antibody-drug conjugates (ADC) have profoundly reshaped the treatment landscape for patients who do not achieve pathological complete response (pCR) after neoadjuvant therapy (PMID: 42477937).\n\nIn triple-negative breast cancer (TNBC), refined subtyping and the investigation of subtype-specific combination strategies have significantly improved outcomes in a subset of patients (PMID: 42477937). The use of PD-1/PD-L1 inhibitors combined with chemotherapy in the neoadjuvant setting has entered the exploratory phase of de-escalation, and PARP inhibitors and TROP-2 ADC have also achieved breakthrough progress in both neoadjuvant and adjuvant settings (PMID: 42477937).\n\nFurthermore, cancer stem cells (CSCs) have been implicated in resistance to standard treatment and metastasis in breast cancer, and potential treatment strategies including latest clinical trials have been reviewed (PMID: 42435323).\n\nReferences:\nPMID: 42477937\nPMID: 42435323",
+            "additional_kwargs": {},
+            "response_metadata": {
+                "token_usage": {
+                    "completion_tokens": 350,
+                    "prompt_tokens": 1577,
+                    "total_tokens": 1927,
+                    "completion_time": 0.698704821,
+                    "completion_tokens_details": null,
+                    "prompt_time": 0.117821886,
+                    "prompt_tokens_details": null,
+                    "queue_time": 0.160605022,
+                    "total_time": 0.816526707
+                },
+                "model_name": "llama-3.3-70b-versatile",
+                "system_fingerprint": "fp_3272ea2d91",
+                "service_tier": "on_demand",
+                "finish_reason": "stop",
+                "logprobs": null,
+                "model_provider": "groq"
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--019facd6-9156-7093-9cc8-f2448e6e78cc-0",
+            "tool_calls": [],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+                "input_tokens": 1577,
+                "output_tokens": 350,
+                "total_tokens": 1927
+            }
+        },
+        "context": "PMID: 42477937\n[Advancement of subtype-based early breast cancer systematic therapy].\nThis article systematically reviews the latest advances in systemic therapy for early breast cancer (EBC) across different molecular subtypes-hormone receptor positive/human epidermal growth factor receptor 2 negative (HR+HER2-), HER2-positive, and triple-negative breast cancer (TNBC). It elaborates on the evolution of treatment strategies in endocrine therapy, targeted therapy, and immunotherapy. The combination of CDK4/6 inhibitors with adjuvant endocrine therapy has redefined the high-risk population in HR+HER2-breast cancer. PARP inhibitors have become an important therapeutic option for patients with germline pathogenic or likely pathogenic BRCA mutations in HER2-negative disease. Novel oral selective estrogen receptor degraders are expected to emerge as a new adjuvant treatment choice for this subtype. For HER2 positive patients, treatment is now in an era where de-escalation and escalation strategies are pursued in parallel. Antibody\u2009drug conjugates (ADC) have profoundly reshaped the treatment landscape for patients who do not achieve pathological complete response (pCR) after neoadjuvant therapy, and their role in neoadjuvant and adjuvant settings is being further explored. In TNBC, refined subtyping and the investigation of subtype-specific combination strategies have significantly improved outcomes in a subset of patients. The use of PD-1/PD-L1 inhibitors combined with chemotherapy in the neoadjuvant setting has entered the exploratory phase of de-escalation. PARP inhibitors and TROP-2\u2009ADC have also achieved breakthrough progress in both neoadjuvant and adjuvant settings. Precision diagnostic tools, including genetic testing and liquid biopsy, are increasingly being integrated into treatment decision-making across all subtypes of breast cancer. Molecular subtype-guided precision medicine now enables individualized systemic therapy for EBC via novel agents and biomarker-driven strategies, optimizing clinical decisions and improving outcomes. \u8be5\u6587\u7cfb\u7edf\u68b3\u7406\u4e86\u4e0d\u540c\u5206\u5b50\u4e9a\u578b\u65e9\u671f\u4e73\u817a\u764c\uff08EBC\uff09\uff3b\u6fc0\u7d20\u53d7\u4f53\uff08HR\uff09\u9633\u6027\u4eba\u8868\u76ae\u751f\u957f\u56e0\u5b50\u53d7\u4f532\uff08HER2\uff09\u9634\u6027\u3001HER2\u9633\u6027\u53ca\u4e09\u9634\u6027\u4e73\u817a\u764c\uff08TNBC\uff09\uff3d\u5168\u8eab\u6cbb\u7597\u7684\u6700\u65b0\u7814\u7a76\u8fdb\u5c55\uff0c\u5206\u522b\u4ece\u5185\u5206\u6ccc\u6cbb\u7597\u3001\u9776\u5411\u6cbb\u7597\u53ca\u514d\u75ab\u6cbb\u7597\u7684\u89d2\u5ea6\uff0c\u6982\u62ec\u4e86\u6cbb\u7597\u7b56\u7565\u7684\u6f14\u8fdb\u3002\u7ec6\u80de\u5468\u671f\u86cb\u767d\u4f9d\u8d56\u6027\u6fc0\u91764/6\uff08CDK4/6\uff09\u6291\u5236\u5242\u8054\u5408\u5185\u5206\u6ccc\u8f85\u52a9\u6cbb\u7597\u9769\u65b0\u4e86HR\u9633\u6027HER2\u9634\u6027\u4e73\u817a\u764c\u9ad8\u98ce\u9669\u4eba\u7fa4\u5b9a\u4e49\uff1b\u805a\u817a\u82f7\u4e8c\u78f7\u9178\u6838\u7cd6\u805a\u5408\u9176\uff08PARP\uff09\u6291\u5236\u5242\u5df2\u6210\u4e3a\n\nPMID: 42477939\n[Expert consensus on the diagnosis and treatment of young breast cancer in China (2026 edition)].\nIn recent years, the incidence of breast cancer in young women is increasing across the world, especially in China. Younger patients face a high risk of recurrence and metastasis, along with unique needs related to fertility, psychological well-being, and return to work. Therefore, clinical management must not only aim to ensure survival outcomes but also address their long-term quality of life. More than one hundred Chinese experts from breast surgical oncology, medical oncology, radiation oncology, gynecology, reproductive medicine, genetics and nursing have gathered together to address these challenges. Based on the latest evidence from China and abroad, they have updated the \"Expert consensus on the diagnosis and treatment of young breast cancer in China\" from \"2022 edition\" to \"2026 edition\". This new consensus delves into the diagnosis and treatment of young breast cancer patients, offering suggestions for many clinical questions lacking standard answers. The consensus aims to standardize the diagnosis and treatment procedures, optimize treatment strategies, guide future clinical research, and ultimately improve patients' prognosis and quality of life. \u8fd1\u5e74\u6765\u5168\u7403\u5c24\u5176\u4e2d\u56fd\u4e73\u817a\u764c\u53d1\u75c5\u5e74\u8f7b\u5316\uff0c\u5e74\u8f7b\u60a3\u8005\u9762\u4e34\u9ad8\u590d\u53d1\u8f6c\u79fb\u98ce\u9669\u53ca\u751f\u80b2\u3001\u5fc3\u7406\u3001\u8fd4\u5de5\u7b49\u72ec\u7279\u9700\u6c42\uff0c\u4e34\u5e8a\u9700\u5728\u4fdd\u969c\u751f\u5b58\u7387\u7684\u540c\u65f6\u517c\u987e\u5176\u957f\u671f\u751f\u6d3b\u8d28\u91cf\u3002\u6765\u81ea\u4e2d\u56fd\u4e34\u5e8a\u80bf\u7624\u5b66\u4f1a\u4e73\u817a\u764c\u4e13\u5bb6\u59d4\u5458\u4f1a\u3001\u4e2d\u56fd\u6297\u764c\u534f\u4f1a\u4e73\u817a\u764c\u4e13\u4e1a\u59d4\u5458\u4f1a\u3001\u4e2d\u534e\u533b\u5b66\u4f1a\u5916\u79d1\u5b66\u5206\u4f1a\u4e73\u817a\u5916\u79d1\u5b66\u7ec4\u7684\u4e73\u817a\u5916\u79d1\u3001\u80bf\u7624\u5185\u79d1\u3001\u653e\u7597\u79d1\u3001\u5987\u79d1\u3001\u751f\u6b96\u79d1\u3001\u9057\u4f20\u5b66\u53ca\u62a4\u7406\u90e8\u7684100\u4f59\u4f4d\u6743\u5a01\u4e13\u5bb6\uff0c\u57fa\u4e8e\u56fd\u5185\u5916\u6700\u65b0\u7684\u5faa\u8bc1\u533b\u5b66\u8bc1\u636e\uff0c\u5bf9\u5e74\u8f7b\u4e73\u817a\u764c\u7684\u6d41\u884c\u75c5\u5b66\u7279\u5f81\u3001\u7b5b\u67e5\u7b56\u7565\u3001\u9057\u4f20\u7a81\u53d8\u5f71\u54cd\u3001\u6cbb\u7597\u65b9\u6848\u3001\u751f\u80b2\u4fdd\u62a4\u53ca\u5eb7\u590d\u652f\u6301\u7b49\u5173\u952e\u95ee\u9898\u8fdb\u884c\u4e86\u6df1\u5165\u63a2\u8ba8\uff0c\u5e76\u7ed3\u5408\u4e2d\u56fd\u4e34\u5e8a\u5b9e\u8df5\u7ecf\u9a8c\uff0c\u5728\u300a\u4e2d\u56fd\u5e74\u8f7b\u4e73\u817a\u764c\u8bca\u7597\u4e13\u5bb6\u5171\u8bc6\uff082022\u7248\uff09\u300b\u57fa\u7840\u4e0a\u66f4\u65b0\u5236\u8ba2\u4e86\u300a\u4e2d\u56fd\u5e74\u8f7b\u4e73\u817a\u764c\u8bca\u7597\u4e13\u5bb6\u5171\u8bc6\uff082026\u7248\uff09\u300b\u3002\u672c\u5171\u8bc6\u6df1\u5165\u5256\u6790\u4e86\u5e74\u8f7b\u4e73\u817a\u764c\u60a3\u8005\u7684\u8bca\u7597\u73b0\u72b6\u548c\u75c5\u60c5\u7279\u70b9\uff0c\u5e76\u9488\u5bf9\u8bf8\u591a\u7f3a\u4e4f\u6807\u51c6\u7b54\u6848\u7684\u4e34\u5e8a\u95ee\u9898\u63d0\u51fa\u9488\u5bf9\u6027\u7684\u5efa\u8bae\uff0c\u65e8\u5728\u8fdb\u4e00\u6b65\u89c4\u8303\u4e2d\u56fd\u5e74\u8f7b\u4e73\u817a\u764c\u7684\u8bca\u7597\u6d41\u7a0b\uff0c\u4f18\u5316\u8bca\u6cbb\u7b56\u7565\uff0c\u540c\u65f6\u4e3a\u672a\u6765\u76f8\u5173\u4e34\u5e8a\u7814\u7a76\u63d0\u4f9b\u53c2\u8003\u65b9\u5411\uff0c\u4ee5\u671f\u8fdb\u4e00\u6b65\u6539\u5584\u5e74\u8f7b\u4e73\u817a\u764c\u60a3\u8005\u7684\u9884\u540e\u548c\u751f\u6d3b\u8d28\u91cf\u3002.\n\nPMID: 42435323\nClinical implications of breast cancer stem cells: A review.\nCancer stem cells (CSCs) are a small population of cells within a tumor which perform stem cell like functions including self-renewal, differentiation and initiation. This narrative review aims to provide an overview of the role of CSCs in resistance to standard treatment and metastasis in breast cancer, potential treatment strategies including latest clinical trials, and the clinical implications for CSCs in the management of breast cancer. The most established breast CSC markers (CD44+/CD24- and ALDH1) are most prevalent in basal-like cancers, the most aggressive subtype of breast cancer. The most implicated CSC pathways include Hedgehog, Notch, CXCR1, and Wnt. Previous phase I/II trials targeting these pathways associated with breast CSCs have shown mixed results; no CSC-specific drug has reached phase III trial in breast cancer. To maximize the potential benefit of CSC-targeted therapy, it would be important to select or enrich patients with CSC markers or CSC-associated pathway activation. It would also be critical to develop combination strategies that overcome plasticity and/or immune invasion, and preferentially destroy CSCs with limited impact on healthy stem cells. Overall, breast CSCs may have greater clinical implications but require further research and development to realize their full clinical potential.",
+        "pmids": [
+            "42477937",
+            "42477939",
+            "42435323"
+        ]
+    },
+    {
+        "question": "COVID-19 vaccine effectiveness",
+        "answer": {
+            "content": "The effectiveness of COVID-19 vaccines has been studied in various populations, including immunocompromised individuals such as cancer patients. According to a study (PMID: 42518492), the original mRNA-1273 COVID-19 vaccine was found to be immunogenic against the wild-type (WT) SARS-CoV-2 virus and its variants in cancer patients. The study used the MSD multiplex assay to assess neutralizing antibody response and found a positive correlation between binding inhibition and previously reported neutralizing antibody titers against the WT antigen. The results showed that all 168 participants had an increase in binding inhibition following the third vaccine dose against each variant tested.\n\nThe success of COVID-19 mRNA vaccines has also been underscored by their efficacy and safety in the general population (PMID: 42509561). However, the effectiveness of vaccination campaigns can be optimized by considering factors such as the willingness of the public to receive vaccines, uncertainty of vaccination delivery and administration, and healthcare capacity (PMID: 42519183). A mathematical modeling framework has been developed to address the challenge of launching an effective staged vaccination campaign during a viral infection season, and the results suggest that a well-timed, well-phased vaccination campaign can prevent overcrowding in hospitals.\n\nReferences:\nPMID: 42518492\nPMID: 42509561\nPMID: 42519183",
+            "additional_kwargs": {},
+            "response_metadata": {
+                "token_usage": {
+                    "completion_tokens": 280,
+                    "prompt_tokens": 1065,
+                    "total_tokens": 1345,
+                    "completion_time": 0.71203593,
+                    "completion_tokens_details": null,
+                    "prompt_time": 0.095299457,
+                    "prompt_tokens_details": null,
+                    "queue_time": 0.050305711,
+                    "total_time": 0.807335387
+                },
+                "model_name": "llama-3.3-70b-versatile",
+                "system_fingerprint": "fp_dae98b5ecb",
+                "service_tier": "on_demand",
+                "finish_reason": "stop",
+                "logprobs": null,
+                "model_provider": "groq"
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--019facd6-ade3-7a53-bb95-9b6f1d130766-0",
+            "tool_calls": [],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+                "input_tokens": 1065,
+                "output_tokens": 280,
+                "total_tokens": 1345
+            }
+        },
+        "context": "PMID: 42518492\nNeutralizing antibody response to SARS-CoV-2 variants, as determined by the MSD multiplex assay, following COVID-19 vaccination in cancer patients.\nImmunocompromised populations, especially cancer patients, rely on the effectiveness of the COVID-19 vaccines to protect against severe infection or death, both against the original wild-type (WT) SARS CoV-2 virus and its many variants that have emerged. We conducted a study using serum samples from cancer patients who received the original mRNA-1273 COVID-19 vaccine. The Meso Scale Discovery (MSD) multiplex assay was used to assess angiotensin-converting enzyme 2 (ACE2) binding inhibition as a surrogate in this population for neutralization response against the WT SARS-CoV-2 receptor binding domain (RBD) antigen, along with nine of its variants. Confidence intervals were used to compare results between timepoints, and Spearman correlation coefficients were used to compare the results between antigen variants. A positive correlation was found between the binding inhibition and previously reported neutralizing antibody titers against the WT antigen. All 168 participants showed an increase in binding inhibition following the third vaccine dose against each variant tested, however there was no significant difference in binding inhibition between variants. Positive correlations were also found between binding inhibition and previously reported total antibody titers against the WT antigen at each timepoint. Highest binding inhibitions were to the WT, New York, and Alpha variants, while the lowest were to the Beta and Gamma variants. Original vaccines against SARS-CoV-2 are immunogenic against the WT virus and many of its variants, even in immunocompromised populations such as cancer patients. Use of the MSD multiplex assay may be an alternative to viral neutralization assays depending on the subject population characteristics.\n\nPMID: 42509561\nThe current landscape of mRNA therapy and the strategies for mRNA purification and dsRNA removal.\nMessenger RNA (mRNA) technology has emerged as a cornerstone in vaccine development and therapeutic applications, offering key benefits such as high potency, rapid scalability, and cost-effectiveness. The success of COVID-19 mRNA vaccines has underscored their efficacy and safety. However, residual byproducts generated during mRNA synthesis, such as unincorporated caps, nucleoside triphosphates (NTPs), DNA templates, enzymes, abortive transcripts, and double-stranded RNA (dsRNA), pose significant challenges to the clinical application of the RNA therapy. Among these, dsRNA is particularly problematic as it can activate various innate immune responses, suppress mRNA translation and potentially compromise the therapeutic efficacy of mRNA. Therefore, effectively removing dsRNA from in vitro synthesized mRNA is essential before its used in preclinical or clinical settings. In this review article, we provide a comprehensive overview of current mRNA development pipelines and ongoing clinical trials, and recent advances in mRNA purification techniques. Specifically, we focus on strategies for dsRNA removal, which can be broadly categorized into two approaches: (1) separating or removing dsRNA from in vitro transcription (IVT) mRNA products using methods such as RP-HPLC chromatography and cellulose-based purification; and (2) minimizing dsRNA formation during IVT by employing engineered RNA polymerase mutants, chaotropic agents, and magnetic beads, as well as modifying/optimizing DNA templates or RNA molecules to reduce dsRNA generation. We also discuss the advantages and limitations of these purification methods, the factors influencing the selection of purification strategies, and explore potential future directions for improving dsRNA purification technologies and their applications in mRNA-based therapeutics.\n\nPMID: 42519183\nOptimal timing for staged vaccination campaigns: Insights from scenario tree-based stochastic optimization.\nWe develop a mathematical modeling framework to address the challenge in launching an effective staged vaccination campaign during a typical viral infection season to avoid an overwhelmed healthcare system for the entire season. Using the COVID-19 pandemic following its acute phase as a motivating example, our model takes into account the willingness of the public to receive vaccines, as well as the uncertainty of vaccination delivery and administration, to achieve the objective of optimizing the timing and distribution of the vaccination campaign, subject to the constraint that hospitalized cases do not exceed healthcare capacity. The integration of a dynamic transmission model with a scenario tree-based stochastic optimization framework enables the evaluation of future scenarios characterized by uncertainty in vaccination rates, contact mixing, and public adherence to safety measures. Accounting for these future scenarios facilitates the identification of strategies to dynamically adjust the timing and scale of vaccine and contact mixing during distinct phases of the viral season. Our study demonstrates that a well-timed, well-phased vaccination campaign, along with other public health interventions, can prevent overcrowding in hospitalization in a typical viral infection season.",
+        "pmids": [
+            "42518492",
+            "42509561",
+            "42519183"
+        ]
+    },
+    {
+        "question": "Parkinson disease biomarkers",
+        "answer": {
+            "content": "Several biomarkers for Parkinson's disease (PD) have been identified and validated in recent studies. According to PMID: 42516873, cerebrospinal fluid \u03b1-synuclein (\u03b1-syn) seed amplification assays (SAA) have emerged as highly sensitive and specific biomarkers for the diagnosis of PD. Additionally, the presence of pathogenic \u03b1-synuclein in the serum of PD patients has been detected using real-time quaking-induced conversion (RT-QuIC) assays (PMID: 42516873). \n\nOther promising biomarkers include the quantification of proteins released from neural-derived extracellular vesicles (NDEVs), such as oligomeric and phosphorylated \u03b1-syn, tau, and disease-associated microRNAs (PMID: 42516873). Inflammatory biomarkers, including interleukin (IL)-6, IL-10, tumor necrosis factor-\u03b1 (TNF-\u03b1), glial fibrillary acidic protein (GFAP), chitinase-3-like protein 1 (YKL-40), and monocyte chemoattractant protein-1 (MCP-1), are also under active investigation (PMID: 42516873).\n\nA recent study (PMID: 42517556) identified the glycoprotein non-metastatic melanoma protein B (GPNMB)/granulin (GRN) ratio as a sensitive composite biomarker of neuroinflammatory dysregulation, which correlated with disease progression and enabled the detection of mild neuronal loss in PD mouse models. This ratio also distinguished patients with PD from healthy controls with 80% sensitivity, 90% specificity, and 85% accuracy in clinical validation.\n\nReferences:\nPMID: 42516873\nPMID: 42517556",
+            "additional_kwargs": {},
+            "response_metadata": {
+                "token_usage": {
+                    "completion_tokens": 367,
+                    "prompt_tokens": 954,
+                    "total_tokens": 1321,
+                    "completion_time": 0.763306839,
+                    "completion_tokens_details": null,
+                    "prompt_time": 0.048089523,
+                    "prompt_tokens_details": null,
+                    "queue_time": 0.16170733,
+                    "total_time": 0.811396362
+                },
+                "model_name": "llama-3.3-70b-versatile",
+                "system_fingerprint": "fp_3272ea2d91",
+                "service_tier": "on_demand",
+                "finish_reason": "stop",
+                "logprobs": null,
+                "model_provider": "groq"
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--019facd6-c6f3-7ee1-aae1-03d1d788b49e-0",
+            "tool_calls": [],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+                "input_tokens": 954,
+                "output_tokens": 367,
+                "total_tokens": 1321
+            }
+        },
+        "context": "PMID: 42516760\nIdentification of a robust multitarget protein panel for Parkinson's disease via absolute quantification and large-scale external replication.\nThis study aimed to identify and validate a robust, generalizable panel of plasma protein biomarkers to improve diagnostic precision in Parkinson's disease. We analysed plasma samples from 12 patients with [\n\nPMID: 42516873\nEmerging biomarkers for Parkinson's disease in biological fluids.\nEarly and accurate diagnosis of Parkinson's disease (PD) remains a challenge, hindering the efficient recruitment of patients into clinical trials aimed at disease modification. This underscores the urgent need for validated and clinically applicable biomarkers. Research continues to expand our knowledge of fluid biomarkers for detecting and monitoring PD progression. Cerebrospinal fluid \u03b1-synuclein (\u03b1-syn) seed amplification assays (SAA) have emerged as highly sensitive and specific biomarkers for the diagnosis of PD. The development of less invasive procedures using biological fluids such as serum or saliva would be more practical for routine clinical use. Recent data demonstrate the presence of pathogenic \u03b1-synuclein in the serum of PD patients compared with healthy controls, detected using real-time quaking-induced conversion (RT-QuIC) assays. Elevated ratios of pS129-\u03b1-syn and/or oligomeric \u03b1-syn to total \u03b1-syn have also been reported in PD. Future research should clarify differences in protein aggregate formation across various synucleinopathies. Promising advances toward a clinically useful blood-based diagnostic test for PD include the quantification of proteins released from neural-derived extracellular vesicles (NDEVs), such as oligomeric and phosphorylated \u03b1-syn, tau, and disease-associated microRNAs. Given the role of neuroinflammation in PD pathogenesis, inflammatory biomarkers, including interleukin (IL)-6, IL-10, tumor necrosis factor-\u03b1(TNF-\u03b1), glial fibrillary acidic protein (GFAP), chitinase-3-like protein 1 (YKL-40), and monocyte chemoattractant protein-1 (MCP-1), are under active investigation. Furthermore, fluid biomarkers associated with Alzheimer's disease pathology are being explored for their potential to predict motor and cognitive decline in PD and related synucleinopathies. Salivary EVs hold promise as a non-invasive source of PD biomarkers; however, robust validation in large, well-characterized cohorts is essential to improve the diagnostic and prognostic accuracy of PD.\n\nPMID: 42517556\nRapid Hematological Profiling of the GPNMB/GRN Ratio via Bioelectronic Platform for Early Diagnosis of Parkinson's Disease.\nEarly blood-based diagnosis of Parkinson's disease (PD) remains challenging owing to the lack of reliable composite biomarkers and rapid, sensitive, and cost-effective detection platforms. Here, we report a bioelectronic sensor based on an organic electrochemical transistor (OECT) driven by a laser-induced graphene (LIG) array. By integrating an alternating-current (AC)-mediated LIG rapid incubation system (LRIS), the platform enables multiplexed protein profiling directly from clinical samples within approximately 6\u00a0min, with attomolar-level detection limits. We identify the glycoprotein non-metastatic melanoma protein B (GPNMB)/granulin (GRN) ratio as a sensitive composite biomarker of neuroinflammatory dysregulation, showing pronounced alterations at early disease stages and complementing \u03b1-synuclein for PD assessment. In PD mouse models spanning mild to severe stages (n = 32), this ratio correlated with disease progression and enabled the detection of mild neuronal loss. Clinical validation in healthy individuals and patients with PD or prodromal PD (n = 54) showed that the GPNMB/GRN ratio distinguished patients with PD from healthy controls with 80% sensitivity, 90% specificity, and 85% accuracy. Incorporating \u03b1-synuclein further improved diagnostic accuracy. This biomarker-platform strategy provides a rapid, ultrasensitive, and scalable framework for blood-based PD screening and early risk assessment.",
+        "pmids": [
+            "42516760",
+            "42516873",
+            "42517556"
+        ]
+    }
+]
