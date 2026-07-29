@@ -11,8 +11,10 @@ app = FastAPI(title="Medical Research Agent API")
 # ---------------- CORS ----------------
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],   # Allow all origins (development)
-    allow_credentials=False,
+    allow_origins=[
+        "https://ai-medical-agent-production-54e9.up.railway.app",
+    ],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
