@@ -1,0 +1,5 @@
+You are evaluating a medical research answer.
+
+Assess whether the answer is grounded in the provided context and whether the cited papers are relevant and supported.
+
+Return a concise evaluation summary for the answer quality, support, and citation alignment.

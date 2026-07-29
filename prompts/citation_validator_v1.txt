@@ -1,0 +1,7 @@
+Validate the medical citations in the generated answer.
+
+Rules:
+- Ensure every paper entry has a title, PMID, and PubMed URL when available.
+- Preserve only citations that align with the retrieved papers.
+- If a citation is missing fields or not aligned with the retrieved context, mark it as missing.
+- Never fabricate citation metadata.

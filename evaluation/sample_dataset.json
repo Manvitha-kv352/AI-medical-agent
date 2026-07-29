@@ -1,17 +1,22 @@
 [
-    {
-        "question": "What are the treatments for Type 2 Diabetes?"
-    },
-    {
-        "question": "What causes Alzheimer's disease?"
-    },
-    {
-        "question": "Latest breast cancer therapies"
-    },
-    {
-        "question": "COVID-19 vaccine effectiveness"
-    },
-    {
-        "question": "Parkinson disease biomarkers"
-    }
+  {
+    "question": "What are the latest treatments for Type 2 Diabetes?",
+    "ground_truth": "Type 2 diabetes is treated using lifestyle modification, metformin, GLP-1 receptor agonists, SGLT2 inhibitors, and insulin when necessary."
+  },
+  {
+    "question": "What causes Alzheimer's disease?",
+    "ground_truth": "Alzheimer's disease is associated with amyloid-beta plaques, tau tangles, genetics, aging, and neuroinflammation."
+  },
+  {
+    "question": "Breast cancer immunotherapy",
+    "ground_truth": "Breast cancer immunotherapy mainly includes immune checkpoint inhibitors, particularly for triple-negative breast cancer."
+  },
+  {
+    "question": "COVID-19 vaccine effectiveness",
+    "ground_truth": "COVID-19 vaccines reduce severe disease, hospitalization, and death while generating protective immune responses."
+  },
+  {
+    "question": "Parkinson disease biomarkers",
+    "ground_truth": "Parkinson's disease biomarkers include alpha-synuclein assays, inflammatory markers, extracellular vesicle biomarkers, and neurodegeneration-related proteins."
+  }
 ]

@@ -1,7 +1,12 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 from graph.workflow import app as agent_app
 
-app = FastAPI()
+app = FastAPI(title="Medical Research Agent API")
+
+
+class ResearchRequest(BaseModel):
+    question: str
 
 
 # =========================
@@ -12,22 +17,44 @@ def home():
     return {"status": "Medical MCP Agent Running 🚀"}
 
 
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
+
 # =========================
 # MAIN ENDPOINT
 # =========================
-@app.get("/research")
-def research(q: str):
+@app.post("/research")
+def research(payload: ResearchRequest):
+    question = (payload.question or "").strip()
+    if not question:
+        raise HTTPException(status_code=400, detail="Question cannot be empty")
 
     result = agent_app.invoke({
-        "question": q,
+        "question": question,
         "docs": [],
         "context": "",
         "answer": ""
     })
 
+    pmids = result.get("pmids", []) or []
+
+    answer = result.get("answer", "") or {}
+    if isinstance(answer, dict):
+        answer = {key: value for key, value in answer.items()}
+    else:
+        answer = {"topic": question, "papers": []}
+
     return {
-    "query": q,
-    "answer": result["answer"],
-    "context": result["context"],
-    "pmids": result["pmids"]
-}
+        "query": question,
+        "answer": answer,
+        "context": result.get("context", ""),
+        "pmids": pmids,
+        "citations": [{"pmid": pmid} for pmid in pmids],
+    }
+
+
+@app.get("/research")
+def research_get(q: str):
+    return research(ResearchRequest(question=q))
