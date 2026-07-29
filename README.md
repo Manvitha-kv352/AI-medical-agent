@@ -1,164 +1,303 @@
-# Medical Research Agent
+# 🏥 AI Medical Research Agent
 
-A production-oriented medical research assistant that combines FastAPI, LangGraph-style workflow orchestration, PubMed retrieval, and Groq-backed generation to answer biomedical questions with grounded citations.
+An AI-powered Medical Research Assistant that retrieves, ranks, and summarizes biomedical literature from PubMed using Retrieval-Augmented Generation (RAG), hybrid search, citation validation, and automated evaluation.
 
-## Overview
+---
 
-The project accepts a natural-language medical research question, retrieves candidate papers from PubMed, builds a retrieval context, and generates a structured answer with paper summaries and citation metadata. The current backend is implemented with FastAPI and the frontend is a Vite/React application.
+## 🚀 Overview
 
-## Architecture
+The AI Medical Research Agent helps researchers, clinicians, and students quickly explore medical literature by combining Large Language Models with trusted biomedical sources.
 
-```text
-User -> Frontend (Vite/React)
-        -> FastAPI backend (/health, /research)
-        -> Retrieval workflow
-           -> PubMed search + abstract fetch
-           -> Context assembly + reranking
-           -> Prompt rendering + Groq generation
-           -> Citation validation + evaluation logging
-```
+Instead of generating unsupported answers, the system retrieves relevant PubMed papers, reranks them using hybrid retrieval, validates citations, and produces structured research summaries.
 
-## Features
+---
 
-- PubMed-powered retrieval for biomedical literature
-- Structured answer generation with paper-level summaries
-- Citation validation and source alignment checks
-- Prompt versioning and evaluation hooks
-- Docker-based local deployment
-- FastAPI health and research endpoints
+## ✨ Features
 
-## Tech Stack
+* 🔎 Intelligent PubMed search
+* 🧠 Retrieval-Augmented Generation (RAG)
+* 📚 Hybrid Retrieval (Dense + BM25)
+* 📄 Automatic paper summarization
+* ✅ Citation validation
+* 📌 PMID and PubMed link generation
+* ⚡ LangGraph workflow orchestration
+* 🤖 Groq LLM integration
+* 🗂️ ChromaDB vector database
+* 📊 Automatic evaluation pipeline
+* 🐳 Docker support
+* 🌐 FastAPI REST API
+* 💻 React + Vite frontend
 
-- Backend: Python, FastAPI, Uvicorn
-- Workflow: LangGraph-style Python orchestration
-- Retrieval: PubMed E-Utilities, optional Chroma-backed storage
-- LLM: Groq via OpenAI-compatible endpoint
-- Frontend: React, Vite, Axios
-- Containerization: Docker, Docker Compose
+---
 
-## Project Structure
+## 🏗️ System Architecture
 
 ```text
-medical-research-agent/
-├── api.py
-├── Dockerfile
-├── docker-compose.yml
-├── requirements-minimal.txt
-├── requirements.txt
-├── graph/
-├── llm/
-├── prompts/
-├── tools/
-├── evaluation/
-├── frontend/
-├── tests/
-└── README.md
+User Query
+     │
+     ▼
+FastAPI API
+     │
+     ▼
+LangGraph Workflow
+     │
+     ├──────────────► Query Generation
+     │
+     ▼
+PubMed Search
+     │
+     ▼
+Document Retrieval
+     │
+     ▼
+ChromaDB Vector Search
+     │
+     ▼
+Hybrid Reranking (Dense + BM25)
+     │
+     ▼
+Context Assembly
+     │
+     ▼
+Groq LLM
+     │
+     ▼
+Citation Validation
+     │
+     ▼
+Evaluation Pipeline
+     │
+     ▼
+Structured Research Response
 ```
 
-## Installation
+---
 
-### Prerequisites
-
-- Python 3.10+
-- Node.js 20+
-- Docker Desktop (optional)
-
-### Python environment
-
-```bash
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-pip install -r requirements-minimal.txt
-```
-
-### Frontend dependencies
-
-```bash
-cd frontend
-npm install
-```
-
-## Environment Variables
-
-Create a copy of [.env.example](.env.example) and fill in the required values.
-
-```env
-GROQ_API_KEY=your_groq_api_key_here
-MODEL_NAME=llama-3.3-70b-versatile
-VITE_API_URL=http://localhost:8000
-```
-
-## Running Locally
+## 🛠️ Technology Stack
 
 ### Backend
 
-```bash
-uvicorn api:app --host 0.0.0.0 --port 8000
-```
+* Python
+* FastAPI
+* LangGraph
+* LangChain
+* ChromaDB
+* Groq API
+
+### Retrieval
+
+* PubMed API
+* Hybrid Retrieval
+* BM25
+* Dense Vector Search
 
 ### Frontend
 
-```bash
-cd frontend
-npm run dev
+* React
+* Vite
+
+### DevOps
+
+* Docker
+* Docker Compose
+* GitHub
+
+### Evaluation
+
+* RAGAS (with heuristic fallback)
+* Prompt versioning
+* Citation validation
+
+---
+
+## 📂 Project Structure
+
+```text
+AI-medical-agent/
+│
+├── backend/
+├── frontend/
+├── graph/
+├── prompts/
+├── evaluation/
+├── rag_service/
+├── tools/
+├── tests/
+├── medical_db/
+├── api.py
+├── app.py
+├── docker-compose.yml
+└── README.md
 ```
 
-## Running with Docker
+---
+
+## ⚙️ Installation
+
+Clone the repository:
 
 ```bash
-docker compose up --build
+git clone https://github.com/Manvitha-kv352/AI-medical-agent.git
+cd AI-medical-agent
 ```
 
-The backend will be available on http://localhost:8000 and the frontend on http://localhost:5173.
-
-## API Documentation
-
-The FastAPI app exposes:
-
-- GET /health
-- GET /
-- POST /research
-- GET /research
-
-### Example request
+Create a virtual environment:
 
 ```bash
-curl -X POST http://localhost:8000/research \
-  -H "Content-Type: application/json" \
-  -d '{"question":"Find papers about AI in neuroscience"}'
+python -m venv venv
 ```
 
-### Example response
+Activate it:
+
+**Windows**
+
+```bash
+venv\Scripts\activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## ▶️ Run the Backend
+
+```bash
+uvicorn api:app --reload
+```
+
+Backend:
+
+```
+http://localhost:8000
+```
+
+Health endpoint:
+
+```
+GET /health
+```
+
+Research endpoint:
+
+```
+POST /research
+```
+
+---
+
+## 🐳 Run with Docker
+
+Build:
+
+```bash
+docker compose build
+```
+
+Run:
+
+```bash
+docker compose up
+```
+
+---
+
+## 📥 Example Request
 
 ```json
 {
-  "query": "Find papers about AI in neuroscience",
-  "answer": {
-    "topic": "Find papers about AI in neuroscience",
-    "papers": []
-  },
-  "context": "",
-  "pmids": [],
-  "citations": []
+  "question": "Find papers about AI applications in neuroscience and healthcare."
 }
 ```
 
-## Evaluation Pipeline
+---
 
-Evaluation results are written to the evaluation output directory when the workflow completes. The evaluation layer uses fallback heuristics if the RAGAS stack is unavailable.
+## 📤 Example Response
 
-## Troubleshooting
-
-- Verify that the Groq API key is set in the environment.
-- If PubMed retrieval fails, the workflow still returns a structured fallback answer.
-- For Docker issues, rebuild containers with:
-
-```bash
-docker compose down
-docker compose up --build
+```json
+{
+  "query": "...",
+  "answer": {
+    "topic": "...",
+    "papers": [
+      {
+        "title": "...",
+        "summary": "...",
+        "pmid": "...",
+        "pubmed_url": "..."
+      }
+    ]
+  },
+  "pmids": [
+    "41006992"
+  ]
+}
 ```
 
-## Deployment Notes
+---
 
-The current project is sized for container-based deployment on Render, Azure App Service, or Railway with environment variables configured at the platform level.
+## 📊 Evaluation Pipeline
 
+The project includes an evaluation framework that measures:
+
+* Retrieval quality
+* Citation completeness
+* Prompt version
+* Answer quality
+* Evaluation metadata
+
+If RAGAS dependencies are unavailable, the system automatically falls back to heuristic evaluation to maintain service availability.
+
+---
+
+## 🔐 Citation Validation
+
+Every generated paper is checked for:
+
+* Valid title
+* PMID
+* PubMed URL
+* Alignment with retrieved documents
+
+Incomplete citations are flagged instead of being presented as verified references.
+
+---
+
+## 🧪 Testing
+
+Run the smoke tests:
+
+```bash
+pytest -q tests/test_smoke.py
+```
+
+---
+
+## 🚀 Future Improvements
+
+* PDF research report generation
+* Conversation memory
+* Streaming responses
+* Authentication
+* Monitoring and metrics
+* Cloud deployment
+* Advanced biomedical reranking
+
+---
+
+## 👩‍💻 Author
+
+**Manvitha K V**
+
+Artificial Intelligence & Data Science Engineer
+
+GitHub: https://github.com/Manvitha-kv352
+
+---
+
+## 📄 License
+
+This project is released under the MIT License.
