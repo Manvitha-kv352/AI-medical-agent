@@ -185,11 +185,8 @@ def evaluate_and_store(
     answer_text = _safe_answer_text(answer)
     contexts = _build_contexts(retrieved_docs)
 
-    print(f"[Evaluation] Starting evaluation for query: {query}")
-
     try:
         scores = _evaluate_with_ragas(query, answer_text, contexts, retrieved_docs)
-        print(f"[Evaluation] RAGAS scores: {scores}")
     except Exception as exc:
         scores = _heuristic_scores(query, answer_text, contexts)
         print(f"[Evaluation] RAGAS evaluation failed, using fallback scores: {exc}")
@@ -212,7 +209,6 @@ def evaluate_and_store(
     }
 
     _write_record(record)
-    print(f"[Evaluation] Stored evaluation record: {record['timestamp']}")
     return record
 
 
@@ -228,4 +224,3 @@ def run_evaluation_in_background(
         daemon=True,
     )
     thread.start()
-    print(f"[Evaluation] Background evaluation thread started for query: {query}")

@@ -1,18 +1,58 @@
-# Virtual Environment
+# Python virtual environments
 venv/
+.venv/
+ENV/
 
-# Environment Variables
+# Environment variables
 .env
+.env.*
+!.env.example
 
-# Python
+# Python bytecode and caches
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
 
-# Chroma Database
+# Node / frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+
+# Build and packaging artifacts
+build/
+dist/
+*.egg-info/
+*.whl
+*.tar.gz
+
+# Data and local storage
 medical_db/
+*.sqlite3
+*.db
+*.db-journal
 
-# IDE
+# Logs and temporary files
+*.log
+*.out
+*.tmp
+*.temp
+*.bak
+*.swp
+*.pid
+
+# Evaluation outputs
+evaluation/results/
+*.jsonl
+
+# IDE and OS files
 .vscode/
-
-# OS
+.idea/
 .DS_Store
+Thumbs.db

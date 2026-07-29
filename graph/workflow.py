@@ -30,9 +30,13 @@ class AgentState(TypedDict):
 # 1. RETRIEVE (MCP)
 # =========================
 def retrieve(state):
-    query = state["question"]
-    ids = pubmed_search(query)
-    docs = fetch_abstracts(ids)
+    query = state.get("question", "")
+    try:
+        ids = pubmed_search(query)
+        docs = fetch_abstracts(ids)
+    except Exception as exc:
+        print(f"[Workflow] Retrieval failed: {exc}")
+        return {"docs": []}
     return {"docs": docs}
 
 
@@ -43,7 +47,10 @@ def embed(state):
     docs = state.get("docs", [])
     if not docs:
         return {}
-    store_docs(docs)
+    try:
+        store_docs(docs)
+    except Exception as exc:
+        print(f"[Workflow] ChromaDB store failed: {exc}")
     return {}
 
 
@@ -51,26 +58,26 @@ def embed(state):
 # 3. CONTEXT (MCP VECTOR SEARCH)
 # =========================
 def context_node(state):
-    query = state["question"]
-    docs = hybrid_search(query=query, docs=state.get("docs", []), top_k=8)
-    before_rerank = docs
-    print("[Debug] Documents retrieved before reranking:", len(before_rerank))
-    print("[Debug] PMIDs before reranking:", [doc.get("pmid") for doc in before_rerank if doc.get("pmid")])
+    query = state.get("question", "")
+    try:
+        docs = hybrid_search(query=query, docs=state.get("docs", []), top_k=8)
+    except Exception as exc:
+        print(f"[Workflow] Hybrid search failed: {exc}")
+        docs = []
 
-    docs = rerank(query=query, docs=docs, top_k=5)
-    print("[Debug] Documents after reranking:", len(docs))
-    print("[Debug] PMIDs after reranking:", [doc.get("pmid") for doc in docs if doc.get("pmid")])
-    print("[Debug] Reranked papers:")
-    for doc in docs:
-        title = doc.get("title") or (doc.get("text", "").splitlines()[0] if doc.get("text") else "Untitled")
-        print(f"  - PMID: {doc.get('pmid')} | Title: {title}")
+    if not docs:
+        return {"context": "", "pmids": [], "retrieved_docs": []}
+
+    try:
+        docs = rerank(query=query, docs=docs, top_k=5)
+    except Exception as exc:
+        print(f"[Workflow] Reranking failed: {exc}")
+        docs = docs[:5]
 
     context = "\n\n".join(
         f"PMID: {doc.get('pmid', 'unknown')}\nTitle: {doc.get('title') or 'Untitled'}\nAbstract: {doc.get('abstract') or doc.get('text', '')}\nMetadata: PMID={doc.get('pmid', '')}; URL={doc.get('pubmed_url', '')}"
         for doc in docs
     )
-
-    print("[Debug] Final context sent to Groq LLM:\n", context)
 
     pmids = [doc.get("pmid") for doc in docs if doc.get("pmid")]
     return {"context": context, "pmids": pmids, "retrieved_docs": docs}
@@ -95,46 +102,52 @@ def _validate_citations(answer, state):
     validation_results = []
 
     for index, paper in enumerate(papers, start=1):
-        pmid = str(paper.get("pmid", "") or "").strip()
-        url = str(paper.get("pubmed_url", "") or "").strip()
-        title = str(paper.get("title", "") or "").strip()
-        summary = str(paper.get("summary", "") or "").strip()
+        try:
+            pmid = str(paper.get("pmid", "") or "").strip()
+            url = str(paper.get("pubmed_url", "") or "").strip()
+            title = str(paper.get("title", "") or "").strip()
+            summary = str(paper.get("summary", "") or "").strip()
 
-        missing_fields = []
-        if not title:
-            missing_fields.append("title")
-        if not pmid:
-            missing_fields.append("pmid")
-        if not url:
-            missing_fields.append("pubmed_url")
+            missing_fields = []
+            if not title:
+                missing_fields.append("title")
+            if not pmid:
+                missing_fields.append("pmid")
+            if not url:
+                missing_fields.append("pubmed_url")
 
-        is_retrieved = pmid in retrieved_pmids if pmid else False
-        if not is_retrieved:
-            missing_fields.append("source_alignment")
+            is_retrieved = pmid in retrieved_pmids if pmid else False
+            if not is_retrieved:
+                missing_fields.append("source_alignment")
 
-        if missing_fields:
-            paper["citation_status"] = "missing"
-            paper["citation_missing_fields"] = missing_fields
-            paper["pmid"] = pmid or "Not available"
-            paper["pubmed_url"] = url or "Not available"
-            paper["summary"] = summary or "Not available in abstract"
-        else:
-            paper["citation_status"] = "ok"
-            paper["citation_missing_fields"] = []
+            if missing_fields:
+                paper["citation_status"] = "missing"
+                paper["citation_missing_fields"] = missing_fields
+                paper["pmid"] = pmid or "Not available"
+                paper["pubmed_url"] = url or "Not available"
+                paper["summary"] = summary or "Not available in abstract"
+            else:
+                paper["citation_status"] = "ok"
+                paper["citation_missing_fields"] = []
 
-        validation_results.append({
-            "paper_index": index,
-            "pmid": pmid or "Not available",
-            "title": title or "Not available",
-            "status": paper.get("citation_status"),
-            "missing_fields": paper.get("citation_missing_fields", []),
-        })
+            validation_results.append({
+                "paper_index": index,
+                "pmid": pmid or "Not available",
+                "title": title or "Not available",
+                "status": paper.get("citation_status"),
+                "missing_fields": paper.get("citation_missing_fields", []),
+            })
+        except Exception as exc:
+            print(f"[Workflow] Citation validation failed for paper {index}: {exc}")
+            validation_results.append({
+                "paper_index": index,
+                "pmid": "Not available",
+                "title": "Not available",
+                "status": "missing",
+                "missing_fields": ["validation_error"],
+            })
 
     answer["papers"] = papers
-    print("[Citation Validation] Validation results:")
-    for item in validation_results:
-        print(item)
-
     return answer, validation_results
 
 
@@ -199,7 +212,11 @@ def generate(state):
         context_text=context_text,
     )
 
-    response = llm.invoke(prompt)
+    try:
+        response = llm.invoke(prompt)
+    except Exception as exc:
+        print(f"[Generation] LLM request failed, falling back to structured answer: {exc}")
+        response = None
 
     try:
         import json
