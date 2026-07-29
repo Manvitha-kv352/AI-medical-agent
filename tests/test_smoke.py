@@ -65,6 +65,21 @@ def test_research_endpoint_handles_internal_errors():
     assert payload['error']['type'] == 'workflow_error'
 
 
+def test_metrics_endpoint_returns_runtime_stats():
+    client = TestClient(fastapi_app)
+    response = client.get('/metrics')
+    assert response.status_code == 200
+    payload = response.json()
+    assert 'total_requests' in payload
+    assert 'successful_requests' in payload
+    assert 'failed_requests' in payload
+    assert 'average_response_time' in payload
+    assert 'pubmed_retrieval_time' in payload
+    assert 'reranking_time' in payload
+    assert 'llm_generation_time' in payload
+    assert 'evaluation_time' in payload
+
+
 def test_research_endpoint_rejects_empty_question():
     client = TestClient(fastapi_app)
     response = client.post('/research', json={'question': ''})

@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from prompts.prompt_loader import get_prompt_versions, render_prompt
+from logger import logger
 
 ROOT = Path(__file__).resolve().parent
 RESULTS_DIR = ROOT / "results"
@@ -189,7 +190,7 @@ def evaluate_and_store(
         scores = _evaluate_with_ragas(query, answer_text, contexts, retrieved_docs)
     except Exception as exc:
         scores = _heuristic_scores(query, answer_text, contexts)
-        print(f"[Evaluation] RAGAS evaluation failed, using fallback scores: {exc}")
+        logger.exception("RAGAS evaluation failed, using fallback scores")
 
     versions = prompt_versions or get_prompt_versions()
     evaluation_prompt = render_prompt("evaluation", version=versions.get("evaluation", "v1"), query=query, answer=answer_text)
@@ -209,6 +210,11 @@ def evaluate_and_store(
     }
 
     _write_record(record)
+    logger.info("Evaluation score: faithfulness=%.3f context_precision=%.3f context_recall=%.3f answer_relevancy=%.3f",
+                record.get("faithfulness_score", 0.0),
+                record.get("context_precision_score", 0.0),
+                record.get("context_recall_score", 0.0),
+                record.get("answer_relevancy_score", 0.0))
     return record
 
 

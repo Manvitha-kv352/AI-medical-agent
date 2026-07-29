@@ -2,6 +2,7 @@ import re
 import requests
 import xml.etree.ElementTree as ET
 from urllib.parse import quote
+from logger import logger
 
 
 def build_pubmed_query(query: str) -> str:
@@ -32,6 +33,7 @@ def build_pubmed_query(query: str) -> str:
 # =========================
 def pubmed_search(query: str, top_k: int = 5):
     pubmed_query = build_pubmed_query(query)
+    logger.info("Generated PubMed query: %s", pubmed_query or query)
 
     url = (
         "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
@@ -43,10 +45,11 @@ def pubmed_search(query: str, top_k: int = 5):
         res.raise_for_status()
         root = ET.fromstring(res.text)
     except Exception as exc:
-        print(f"[Retrieval] PubMed search failed: {exc}")
+        logger.exception("PubMed search failed")
         return []
 
     ids = [i.text for i in root.findall(".//Id")]
+    logger.info("Retrieved PMIDs: %s", ids)
     return ids
 
 
@@ -66,7 +69,7 @@ def fetch_abstracts(ids):
         res = requests.get(url, timeout=30)
         root = ET.fromstring(res.text)
     except Exception as exc:
-        print(f"[Retrieval] PubMed fetch failed: {exc}")
+        logger.exception("PubMed fetch failed")
         return []
 
     docs = []

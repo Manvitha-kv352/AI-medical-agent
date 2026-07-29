@@ -3,7 +3,7 @@ import './App.css';
 
 const API_URL =
   import.meta.env.VITE_API_URL ||
- "https://ai-medical-agent-production-54e9.up.railway.app";
+  "https://ai-medical-agent-production-54e9.up.railway.app";
 console.log("API_URL =", API_URL);
 
 function App() {

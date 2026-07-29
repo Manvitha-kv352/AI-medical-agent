@@ -1,13 +1,10 @@
-import logging
-
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from graph.workflow import app as agent_app
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("medical_research_agent")
+from logger import logger
+from metrics import metrics_store
 
 app = FastAPI(title="Medical Research Agent API")
 
@@ -63,6 +60,11 @@ def health():
     return {"status": "ok"}
 
 
+@app.get("/metrics")
+def metrics():
+    return metrics_store.snapshot()
+
+
 # ---------------- RESEARCH ----------------
 @app.post("/research")
 def research(payload: ResearchRequest):
@@ -80,17 +82,19 @@ def research(payload: ResearchRequest):
             detail="Question is too long",
         )
 
+    start_time = __import__("time").perf_counter()
     try:
-        result = agent_app.invoke(
-            {
-                "question": question,
-                "docs": [],
-                "context": "",
-                "answer": "",
-            }
-        )
-
-    except Exception:
+        result = agent_app.invoke({
+            "question": question,
+            "docs": [],
+            "context": "",
+            "answer": ""
+        })
+        response_time = __import__("time").perf_counter() - start_time
+        metrics_store.record_request(response_time, success=True)
+    except Exception as exc:
+        response_time = __import__("time").perf_counter() - start_time
+        metrics_store.record_request(response_time, success=False)
         logger.exception("Workflow execution failed")
         return _error_response(
             500,

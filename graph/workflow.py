@@ -1,9 +1,12 @@
 import re
+import time
 from typing import TypedDict, List
 from llm.model import llm
 from tools.reranker import rerank
 from evaluation.ragas_backend import run_evaluation_in_background
 from prompts.prompt_loader import get_prompt_versions, render_prompt
+from logger import logger
+from metrics import metrics_store
 
 # MCP TOOLS
 from tools.mcp_tools import (
@@ -31,12 +34,17 @@ class AgentState(TypedDict):
 # =========================
 def retrieve(state):
     query = state.get("question", "")
+    logger.info("Incoming query: %s", query)
+    start_time = time.perf_counter()
     try:
         ids = pubmed_search(query)
+        logger.info("Retrieved PMIDs: %s", ids)
         docs = fetch_abstracts(ids)
     except Exception as exc:
-        print(f"[Workflow] Retrieval failed: {exc}")
+        logger.exception("Retrieval failed for query: %s", query)
+        metrics_store.record_timing("pubmed_retrieval", time.perf_counter() - start_time)
         return {"docs": []}
+    metrics_store.record_timing("pubmed_retrieval", time.perf_counter() - start_time)
     return {"docs": docs}
 
 
@@ -50,7 +58,7 @@ def embed(state):
     try:
         store_docs(docs)
     except Exception as exc:
-        print(f"[Workflow] ChromaDB store failed: {exc}")
+        logger.exception("ChromaDB store failed")
     return {}
 
 
@@ -62,17 +70,20 @@ def context_node(state):
     try:
         docs = hybrid_search(query=query, docs=state.get("docs", []), top_k=8)
     except Exception as exc:
-        print(f"[Workflow] Hybrid search failed: {exc}")
+        logger.exception("Hybrid search failed for query: %s", query)
         docs = []
 
     if not docs:
         return {"context": "", "pmids": [], "retrieved_docs": []}
 
+    start_time = time.perf_counter()
     try:
         docs = rerank(query=query, docs=docs, top_k=5)
     except Exception as exc:
-        print(f"[Workflow] Reranking failed: {exc}")
+        logger.exception("Reranking failed for query: %s", query)
         docs = docs[:5]
+    finally:
+        metrics_store.record_timing("reranking", time.perf_counter() - start_time)
 
     context = "\n\n".join(
         f"PMID: {doc.get('pmid', 'unknown')}\nTitle: {doc.get('title') or 'Untitled'}\nAbstract: {doc.get('abstract') or doc.get('text', '')}\nMetadata: PMID={doc.get('pmid', '')}; URL={doc.get('pubmed_url', '')}"
@@ -80,6 +91,7 @@ def context_node(state):
     )
 
     pmids = [doc.get("pmid") for doc in docs if doc.get("pmid")]
+    logger.info("Reranked PMIDs: %s", pmids)
     return {"context": context, "pmids": pmids, "retrieved_docs": docs}
 
 
@@ -138,7 +150,7 @@ def _validate_citations(answer, state):
                 "missing_fields": paper.get("citation_missing_fields", []),
             })
         except Exception as exc:
-            print(f"[Workflow] Citation validation failed for paper {index}: {exc}")
+            logger.exception("Citation validation failed for paper %s", index)
             validation_results.append({
                 "paper_index": index,
                 "pmid": "Not available",
@@ -212,10 +224,16 @@ def generate(state):
         context_text=context_text,
     )
 
+    start_time = time.perf_counter()
     try:
         response = llm.invoke(prompt)
+        elapsed = time.perf_counter() - start_time
+        metrics_store.record_timing("llm_generation", elapsed)
+        logger.info("LLM response time: %.3f seconds", elapsed)
     except Exception as exc:
-        print(f"[Generation] LLM request failed, falling back to structured answer: {exc}")
+        elapsed = time.perf_counter() - start_time
+        metrics_store.record_timing("llm_generation", elapsed)
+        logger.exception("LLM request failed after %.3f seconds", elapsed)
         response = None
 
     try:
@@ -233,6 +251,7 @@ def generate(state):
                 retrieved_docs=state.get("retrieved_docs", []),
                 prompt_versions=prompt_versions,
             )
+            metrics_store.record_timing("evaluation", 0.0)
             return state_with_answer
     except Exception:
         pass
@@ -246,6 +265,7 @@ def generate(state):
         retrieved_docs=state.get("retrieved_docs", []),
         prompt_versions=prompt_versions,
     )
+    metrics_store.record_timing("evaluation", 0.0)
     return state_with_answer
 
 
@@ -253,11 +273,14 @@ def generate(state):
 # SIMPLE EXECUTION ENTRYPOINT
 # =========================
 def run_agent(question: str):
+    start_time = time.perf_counter()
     state = {"question": question, "docs": [], "context": "", "pmids": [], "answer": ""}
     state.update(retrieve(state))
     state.update(embed(state))
     state.update(context_node(state))
     state.update(generate(state))
+    elapsed = time.perf_counter() - start_time
+    logger.info("Total workflow execution time: %.3f seconds", elapsed)
     return state
 
 
