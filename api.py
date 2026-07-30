@@ -14,12 +14,8 @@ app = FastAPI(title="Medical Research Agent API")
 # ---------------- CORS ----------------
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://ai-medical-agent-flkzaz59a-kvmanvitha352-6756s-projects.vercel.app",
-        "http://localhost:5173",
-        "http://localhost:3000",
-    ],
-    allow_credentials=True,
+    allow_origins=["*"],   # Allow all origins (development)
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -49,7 +45,11 @@ async def http_exception_handler(request: Request, exc: HTTPException):
 @app.exception_handler(Exception)
 async def unhandled_exception_handler(request: Request, exc: Exception):
     logger.exception("Unhandled API exception")
-    return _error_response(500, "Internal server error", "internal_server_error")
+    return _error_response(
+        500,
+        "Internal server error",
+        "internal_server_error",
+    )
 
 
 # ---------------- HEALTH ----------------
@@ -69,10 +69,16 @@ def research(payload: ResearchRequest):
     question = (payload.question or "").strip()
 
     if not question:
-        raise HTTPException(status_code=400, detail="Question cannot be empty")
+        raise HTTPException(
+            status_code=400,
+            detail="Question cannot be empty",
+        )
 
     if len(question) > 2000:
-        raise HTTPException(status_code=400, detail="Question is too long")
+        raise HTTPException(
+            status_code=400,
+            detail="Question is too long",
+        )
 
     try:
         result = agent_app.invoke(
@@ -97,7 +103,7 @@ def research(payload: ResearchRequest):
 
     pmids = result.get("pmids", []) or []
 
-    answer = result.get("answer", "") or {}
+    answer = result.get("answer", {}) or {}
 
     if not isinstance(answer, dict):
         answer = {
@@ -116,4 +122,6 @@ def research(payload: ResearchRequest):
 
 @app.get("/research")
 def research_get(q: str):
-    return research(ResearchRequest(question=q))
+    return research(
+        ResearchRequest(question=q)
+    )
