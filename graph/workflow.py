@@ -173,15 +173,15 @@ def _build_structured_answer(state):
         abstract = doc.get("abstract") or doc.get("text", "")
         text_for_summary = _clean_text(abstract)
 
-        if text_for_summary:
-            summary = text_for_summary[:500]
-            if len(text_for_summary) > 500:
-                summary = summary + "..."
+        sentences = [s.strip() for s in re.split(r"(?<=[.!?])\s+", text_for_summary) if s.strip()]
+        if sentences:
+            summary = " ".join(sentences[:4])
+            if len(summary) > 600:
+                summary = summary[:600].rsplit(" ", 1)[0] + "..."
         else:
             summary = "No abstract text was available in the retrieved context."
 
-        sentences = [s.strip() for s in re.split(r"(?<=[.!?])\s+", text_for_summary) if s.strip()][:2]
-        key_findings = sentences if sentences else ["No additional findings were available in the retrieved context."]
+        key_findings = sentences[:2] if sentences else ["No additional findings were available in the retrieved context."]
 
         query_terms = [term for term in re.findall(r"[a-z0-9]+", question.lower()) if len(term) > 2]
         overlap = [term for term in query_terms if term in text_for_summary.lower()]

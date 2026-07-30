@@ -82,7 +82,14 @@ function App() {
       const data = await res.json();
 
       if (res.ok) {
-        setResults([data.answer || { topic: query, papers: [] }]);
+        const papers = Array.isArray(data?.answer?.papers)
+          ? data.answer.papers.map((paper, index) => ({
+              ...paper,
+              id: paper.pmid || index,
+            }))
+          : [];
+
+        setResults(papers);
         setSearchHistory([{ query, topic, timestamp: new Date() }, ...searchHistory.slice(0, 9)]);
         fetchStats();
       } else {
@@ -209,7 +216,7 @@ function App() {
                   {results.map((result) => (
                     <div key={result.id} className="research-card">
                       <div className="card-header">
-                        <h3>{result.title}</h3>
+                        <h3>{result.title || 'Untitled paper'}</h3>
                         <button 
                           className={`save-btn ${isArticleSaved(result.id) ? 'saved' : ''}`}
                           onClick={() => handleSaveArticle(result)}
@@ -218,31 +225,32 @@ function App() {
                           ⭐
                         </button>
                       </div>
-                      <p className="abstract">{result.abstract}</p>
-                      
-                      <div className="metadata">
-                        <div className="authors">
-                          <strong>Authors:</strong> {result.authors.join(', ')}
-                        </div>
-                        <div className="year">
-                          <strong>Year:</strong> {result.year}
-                        </div>
-                      </div>
+                      <p className="abstract">{result.summary || result.abstract || 'No summary available.'}</p>
 
-                      <div className="stats-row">
-                        <div className="stat">
-                          <span className="stat-label">Citations</span>
-                          <span className="stat-value">{result.citations}</span>
+                      {Array.isArray(result.key_findings) && result.key_findings.length > 0 && (
+                        <div className="key-findings">
+                          <strong>Key findings:</strong>
+                          <ul>
+                            {result.key_findings.map((finding, fi) => (
+                              <li key={fi}>{finding}</li>
+                            ))}
+                          </ul>
                         </div>
-                        <div className="stat">
-                          <span className="stat-label">Relevance</span>
-                          <span className="stat-value">{(result.relevance * 100).toFixed(0)}%</span>
+                      )}
+
+                      {result.pubmed_url && (
+                        <div className="paper-link">
+                          <a href={result.pubmed_url} target="_blank" rel="noreferrer">
+                            View on PubMed
+                          </a>
                         </div>
-                        <div className="stat">
-                          <span className="stat-label">Match Score</span>
-                          <span className="stat-value">{(result.matchScore * 100).toFixed(0)}%</span>
+                      )}
+
+                      {result.relevance && typeof result.relevance === 'string' && (
+                        <div className="relevance-text">
+                          <strong>Relevance:</strong> {result.relevance}
                         </div>
-                      </div>
+                      )}
                     </div>
                   ))}
                 </div>

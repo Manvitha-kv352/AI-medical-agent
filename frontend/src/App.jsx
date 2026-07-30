@@ -15,6 +15,33 @@ export default function App() {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chat]);
 
+  const formatAnswerText = (answer) => {
+    if (!answer) return "No response";
+    if (typeof answer === "string") return answer;
+    if (Array.isArray(answer.papers) && answer.papers.length > 0) {
+      return [
+        `**Topic:** ${answer.topic || "Not available"}`,
+        ...answer.papers.map((paper, index) => {
+          const title = paper.title || `Paper ${index + 1}`;
+          const summary = paper.summary || "No summary available.";
+          const keyFindings = Array.isArray(paper.key_findings) && paper.key_findings.length > 0
+            ? paper.key_findings.map(f => `- ${f}`).join("\n")
+            : "- No key findings available.";
+          const pubmedUrl = paper.pubmed_url || (paper.pmid ? `https://pubmed.ncbi.nlm.nih.gov/${paper.pmid}/` : "");
+
+          return [
+            `### ${title}`,
+            summary,
+            `**Key findings:**`,
+            keyFindings,
+            pubmedUrl ? `**Link:** [PubMed](${pubmedUrl})` : ""
+          ].filter(Boolean).join("\n\n");
+        })
+      ].join("\n\n");
+    }
+    return JSON.stringify(answer, null, 2);
+  };
+
   const sendMessage = async (nextQuery) => {
     const trimmedQuery = nextQuery.trim();
     if (!trimmedQuery || loading) return;
@@ -32,11 +59,7 @@ export default function App() {
       );
 
       const answer = res.data?.answer;
-      const answerText = typeof answer === "string"
-        ? answer
-        : (answer && typeof answer === "object"
-          ? JSON.stringify(answer, null, 2)
-          : "No response");
+      const answerText = formatAnswerText(answer);
 
       const botMessage = {
         role: "bot",
