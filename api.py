@@ -2,6 +2,7 @@ import logging
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from graph.workflow import app as agent_app
 
@@ -9,6 +10,19 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("medical_research_agent")
 
 app = FastAPI(title="Medical Research Agent API")
+
+# ---------------- CORS ----------------
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://ai-medical-agent-flkzaz59a-kvmanvitha352-6756s-projects.vercel.app",
+        "http://localhost:5173",
+        "http://localhost:3000",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class ResearchRequest(BaseModel):
@@ -38,9 +52,7 @@ async def unhandled_exception_handler(request: Request, exc: Exception):
     return _error_response(500, "Internal server error", "internal_server_error")
 
 
-# =========================
-# HEALTH CHECK
-# =========================
+# ---------------- HEALTH ----------------
 @app.get("/")
 def home():
     return {"status": "Medical MCP Agent Running 🚀"}
@@ -51,27 +63,34 @@ def health():
     return {"status": "ok"}
 
 
-# =========================
-# MAIN ENDPOINT
-# =========================
+# ---------------- RESEARCH ----------------
 @app.post("/research")
 def research(payload: ResearchRequest):
     question = (payload.question or "").strip()
+
     if not question:
         raise HTTPException(status_code=400, detail="Question cannot be empty")
+
     if len(question) > 2000:
         raise HTTPException(status_code=400, detail="Question is too long")
 
     try:
-        result = agent_app.invoke({
-            "question": question,
-            "docs": [],
-            "context": "",
-            "answer": ""
-        })
-    except Exception as exc:
+        result = agent_app.invoke(
+            {
+                "question": question,
+                "docs": [],
+                "context": "",
+                "answer": "",
+            }
+        )
+
+    except Exception:
         logger.exception("Workflow execution failed")
-        return _error_response(500, "Workflow execution failed", "workflow_error")
+        return _error_response(
+            500,
+            "Workflow execution failed",
+            "workflow_error",
+        )
 
     if not isinstance(result, dict):
         result = {}
@@ -79,17 +98,19 @@ def research(payload: ResearchRequest):
     pmids = result.get("pmids", []) or []
 
     answer = result.get("answer", "") or {}
-    if isinstance(answer, dict):
-        answer = {key: value for key, value in answer.items()}
-    else:
-        answer = {"topic": question, "papers": []}
+
+    if not isinstance(answer, dict):
+        answer = {
+            "topic": question,
+            "papers": [],
+        }
 
     return {
         "query": question,
         "answer": answer,
         "context": result.get("context", ""),
         "pmids": pmids,
-        "citations": [{"pmid": pmid} for pmid in pmids],
+        "citations": [{"pmid": p} for p in pmids],
     }
 
 
