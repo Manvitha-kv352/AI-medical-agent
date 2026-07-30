@@ -125,3 +125,8 @@ def research_get(q: str):
     return research(
         ResearchRequest(question=q)
     )
+@app.get("/version")
+def version():
+    return {
+        "version": "cors-test-v1"
+    }
