@@ -15,6 +15,7 @@ app.add_middleware(
     allow_origins=[
         "https://ai-medical-agent-production-54e9.up.railway.app",
         "https://ai-medical-agent-production.up.railway.app",
+        "https://ai-medical-agent-dusky.vercel.app",
         "https://ai-medical-agent-flkzaz59a-kvmanvitha352-6756s-projects.vercel.app",
     ],
     allow_credentials=True,
