@@ -1,10 +1,11 @@
-from fastapi import FastAPI, HTTPException, Request
+﻿from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from graph.workflow import app as agent_app
 from logger import logger
 from metrics import metrics_store
+import time
 
 app = FastAPI(title="Medical Research Agent API")
 
@@ -13,6 +14,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://ai-medical-agent-production-54e9.up.railway.app",
+        "https://ai-medical-agent-production.up.railway.app",
+        "https://ai-medical-agent-flkzaz59a-kvmanvitha352-6756s-projects.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -84,19 +87,19 @@ def research(payload: ResearchRequest):
             detail="Question is too long",
         )
 
-    start_time = __import__("time").perf_counter()
+    start_time = time.perf_counter()
     try:
-        result = agent_app.invoke({
-            "question": question,
-            "docs": [],
-            "context": "",
-            "answer": ""
-        })
-        response_time = __import__("time").perf_counter() - start_time
-        metrics_store.record_request(response_time, success=True)
+        result = agent_app.invoke(
+            {
+                "question": question,
+                "docs": [],
+                "context": "",
+                "answer": "",
+            }
+        )
+        metrics_store.record_request(time.perf_counter() - start_time, success=True)
     except Exception as exc:
-        response_time = __import__("time").perf_counter() - start_time
-        metrics_store.record_request(response_time, success=False)
+        metrics_store.record_request(time.perf_counter() - start_time, success=False)
         logger.exception("Workflow execution failed")
         return _error_response(
             500,
@@ -109,30 +112,24 @@ def research(payload: ResearchRequest):
 
     pmids = result.get("pmids", []) or []
 
-    answer = result.get("answer", {}) or {}
-
+    answer = result.get("answer")
     if not isinstance(answer, dict):
-        answer = {
-            "topic": question,
-            "papers": [],
-        }
+        answer = {"topic": question, "papers": []}
 
     return {
         "query": question,
         "answer": answer,
         "context": result.get("context", ""),
         "pmids": pmids,
-        "citations": [{"pmid": p} for p in pmids],
+        "citations": [{"pmid": pmid} for pmid in pmids],
     }
 
 
 @app.get("/research")
 def research_get(q: str):
-    return research(
-        ResearchRequest(question=q)
-    )
+    return research(ResearchRequest(question=q))
+
+
 @app.get("/version")
 def version():
-    return {
-        "version": "cors-test-v1"
-    }
+    return {"version": "cors-test-v1"}
