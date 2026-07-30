@@ -4,6 +4,7 @@ import './App.css';
 const API_URL =
   import.meta.env.VITE_API_URL ||
   "https://ai-medical-agent-production.up.railway.app";
+console.log("API_URL =", API_URL);
 
 function App() {
   const [query, setQuery] = useState('');
